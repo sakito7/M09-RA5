@@ -28,28 +28,25 @@ public class Rot13 {
 
         for (int i = 0; i < cadena.length; i++) {
             char c = cadena[i];
-            if(c == '?') {
-                resultat = resultat + c;
-                continue;
-            } else {
-                if(Character.isLowerCase(c)) {
-                    for (int i = 0; i < minuscules.length; i++) {
-                        char cMin = minuscules[i];
-                        if (cMin = c) {
-                            posicio = (i+13)%2
-                            for ()
-                            resultat = resultat + 
-                        }
-                        
+            if(Character.isLowerCase(c)) {
+                for (int i = 0; i < minuscules.length; i++) {
+                    char cMin = minuscules[i];
+                    if (cMin = c) {
+                        posicio = (i+13)%2
+                        for (){}
+                        resultat = resultat + 
                     }
-                } else {
-                    for (int i = 0; i < majuscules.length; i++) {
-                        char cMay = majuscules[i];
-                        if (cMay = c) {
-                            posicio = (i+13)%2
-                        }   
-                    }
+                    
                 }
+            } else if(Character.isUpperCase(c)) {
+                for (int i = 0; i < majuscules.length; i++) {
+                    char cMay = majuscules[i];
+                    if (cMay = c) {
+                        posicio = (i+13)%2
+                    }   
+                }
+            } else {
+                resultat = resultat + c;
             }
         }
     }

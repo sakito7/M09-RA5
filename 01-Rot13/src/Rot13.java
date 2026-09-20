@@ -4,7 +4,7 @@ public class Rot13 {
     public static char[] minuscules = alfabet.toCharArray();
     
     public static void main(String[] args) {
-        /*String msgs[] = {"ABC", "XYZ", "Hola, Mr. calçot", "Perdó, per tu que és?"};
+        String msgs[] = {"ABC", "XYZ", "Hola, Mr. calçot", "Perdó, per tu que és?"};
         String msgXifrats[] = new String[msgs.length];
 
         System.out.println("\nXifrat\n---------");
@@ -16,13 +16,8 @@ public class Rot13 {
         
         System.out.println("\nDesxifrat\n---------");
         for (String msg : msgXifrats) {
-            System.out.printf("%-23s => %s%n", msgs, desxifraRot13(msg));
+            System.out.printf("%-23s => %s%n", msg, desxifraRot13(msg));
         }
-            
-        */
-
-        System.out.println(desxifraRot13("Hola, Mr. calçot"));
-
 
     }
 
@@ -68,7 +63,7 @@ public class Rot13 {
                 for (int j = 0; j < minuscules.length; j++) {
                     char cMin = minuscules[j];
                     if (cMin == c) {
-                        posicio = (j-13)%(minuscules.length);
+                        posicio = (j - 13 + minuscules.length) % minuscules.length;
                         resultat = resultat + minuscules[posicio];
                         break;
                     }
@@ -77,7 +72,7 @@ public class Rot13 {
                 for (int j = 0; j < majuscules.length; j++) {
                     char cMay = majuscules[j];
                     if (cMay == c) {
-                        posicio = (j-13)%(majuscules.length);
+                        posicio = (j - 13 + majuscules.length) % majuscules.length;
                         resultat = resultat + majuscules[posicio];
                         break;
                     }   

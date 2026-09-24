@@ -18,7 +18,6 @@ public class RotX {
             System.out.printf("%-28s => %s%n", "(" + index + ")-" + msgs[i], msgXifrats[i]);
             index+=2;
         }
-
         index = 0;
         
         System.out.println("\nDesxifrat\n---------");

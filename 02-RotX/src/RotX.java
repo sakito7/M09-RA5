@@ -14,8 +14,8 @@ public class RotX {
         int index = 0;
 
         for (int i = 0; i < msgs.length; i++) {
-            msgXifrats[i] = xifraRot13(msgs[i], index);
-            System.out.printf("%-28s => %s%n", "(" + index + ") -" + msgs[i], msgXifrats[i]);
+            msgXifrats[i] = xifraRotX(msgs[i], index);
+            System.out.printf("%-28s => %s%n", "(" + index + ")-" + msgs[i], msgXifrats[i]);
             index+=2;
         }
 
@@ -23,13 +23,18 @@ public class RotX {
         
         System.out.println("\nDesxifrat\n---------");
         for (String msg : msgXifrats) {
-            System.out.printf("%-28s => %s%n", "(" + index + ") -" + msg, desxifraRot13(msg, index));
+            System.out.printf("%-28s => %s%n", "(" + index + ") " + msg, desxifraRotX(msg, index));
             index+=2;
         }
 
+        System.out.println();
+
+        String misatge = "Úiüht, úiü wx ùxi ív?";
+        forcaBrutaRotX(misatge);
+
     }
 
-    public static String xifraRot13(String cadena, int desplacament) {
+    public static String xifraRotX(String cadena, int desplacament) {
         StringBuffer resultat = new StringBuffer();
         int posicio;
 
@@ -60,7 +65,7 @@ public class RotX {
         return resultat.toString();
     }
 
-    public static String desxifraRot13(String cadena, int desplacament) {
+    public static String desxifraRotX(String cadena, int desplacament) {
         StringBuffer resultat = new StringBuffer();
         int posicio;
 
@@ -89,5 +94,14 @@ public class RotX {
         }
 
         return resultat.toString();
+    }
+
+    public static void forcaBrutaRotX(String misatge) {
+        System.out.println("Missatge xifrat: " + misatge);
+        System.out.println("----------------");
+        for (int i = 0; i < majuscules.length; i++) {
+            System.out.println("(" + i + ")->" + desxifraRotX(misatge, i));
+        }
+
     }
 }

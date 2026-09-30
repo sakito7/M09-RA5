@@ -10,7 +10,7 @@ public class Monoalfabetic {
 
 
     public void main(String[] args) {
-        List<String> missatges = List.of("àrbitre, coixí, Perímetre", "Taüll, DÍA, año", "Peça, Òrrius, Bòvila");
+        List<String> missatges = List.of("Test 01 àrbitre, coixí, Perímetre", "Test 02 Taüll, DÍA, año", "Test 03 Peça, Òrrius, Bòvila");
         List<String> missatgesInvers = new ArrayList<>();
 
         System.out.println(alfabetNormal);
@@ -18,25 +18,19 @@ public class Monoalfabetic {
         System.out.println();
 
         System.out.println("Xifratge:");
-        for (int i = 0; i < missatges.size(); i++) {
-            System.out.println(missatges.get(i));
-            
+        for (int i = 0; i < missatges.size(); i++) {            
             String missatgeXifrat = xifraMonoAlfa(missatges.get(i));
             missatgesInvers.add(missatgeXifrat);
-            
-            System.out.println(missatgeXifrat);
+            System.out.printf("%-35s -> %s%n", missatges.get(i), missatgeXifrat);
 
         }
 
         System.out.println();
 
         System.out.println("Desxifratge:");
-        for (int i = 0; i < missatgesInvers.size(); i++) {
-            System.out.print(missatgesInvers.get(i));
-            
-            String missatgeXifrat = desxifraMonoAlfa(missatges.get(i));
-            
-            System.out.println(missatgeXifrat);
+        for (int i = 0; i < missatgesInvers.size(); i++) {            
+            String missatgeXifrat = desxifraMonoAlfa(missatgesInvers.get(i));
+            System.out.printf("%-35s -> %s%n", missatgesInvers.get(i), missatgeXifrat);
 
         }
     }
@@ -61,44 +55,30 @@ public class Monoalfabetic {
 
 
     public String xifraMonoAlfa(String cadena) {
-        StringBuilder res = new StringBuilder();
-        for (int i = 0; i < cadena.length(); i++) {
-            char c = cadena.charAt(i);
-
-            if(!Character.isLetter(c)) res.append(c);
-            for (int j = 0; j < alfabetNormal.length; j++) {
-                if (Character.isLowerCase(c)) {
-                    if (Character.toUpperCase(c) == alfabetNormal[j]) {
-                        res.append(Character.toLowerCase(alfabetPermutat[j]));
-                    }
-                }
-                
-                if (c == alfabetNormal[j]) {
-                    res.append(alfabetPermutat[j]);
-                }
-            }
-        }
-
-        return res.toString();
+        return xiDesxiMonoAlfa(cadena, alfabetNormal, alfabetPermutat);
+    }    
+    
+    public String desxifraMonoAlfa(String cadena) {
+        return xiDesxiMonoAlfa(cadena, alfabetPermutat, alfabetNormal);
     }
 
 
 
-    public String desxifraMonoAlfa(String cadena) {
+    public String xiDesxiMonoAlfa(String cadena, char[] principal, char[] resultat) {
         StringBuilder res = new StringBuilder();
         for (int i = 0; i < cadena.length(); i++) {
-            char c = cadena.charAt(i);
-            if(!Character.isLetter(c)) res.append(c);
+            char c = cadena.charAt(i); //ñ
 
-            for (int j = 0; j < alfabetPermutat.length; j++) {
+            if(!Character.isLetter(c)) res.append(c);
+            for (int j = 0; j < principal.length; j++) {
                 if (Character.isLowerCase(c)) {
-                    if (Character.toUpperCase(c) == alfabetPermutat[j]) {
-                        res.append(Character.toLowerCase(alfabetNormal[j]));
+                    if (Character.toUpperCase(c) == principal[j]) {
+                        res.append(Character.toLowerCase(resultat[j]));
                     }
                 }
-
-                if (c == alfabetNormal[j]) {
-                    res.append(alfabetNormal[j]);                    
+                
+                if (c == principal[j]) {
+                    res.append(resultat[j]);
                 }
             }
         }

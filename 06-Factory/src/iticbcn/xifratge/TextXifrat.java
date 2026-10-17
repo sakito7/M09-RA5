@@ -1,6 +1,6 @@
 package iticbcn.xifratge;
 
-import java.util.Base64;
+import java.nio.charset.StandardCharsets;
 
 public class TextXifrat {
     private final byte[] bytes;
@@ -11,7 +11,7 @@ public class TextXifrat {
 
     @Override
     public String toString() {
-        return Base64.getEncoder().encodeToString(bytes);
+        return new String(bytes, StandardCharsets.UTF_8);
     }
 
     public byte[] getBytes() {

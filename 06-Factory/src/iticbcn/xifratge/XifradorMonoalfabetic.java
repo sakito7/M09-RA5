@@ -1,5 +1,6 @@
 package iticbcn.xifratge;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -59,5 +60,23 @@ public class XifradorMonoalfabetic implements Xifrador {
         }
 
         return res.toString();
+    }
+
+    @Override
+    public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
+        if (clau != null) {
+            throw new ClauNoSuportada("Xifratge monoalfabètic no suporta clau != null");
+        }
+        String xifrat = xifraMonoAlfa(msg);
+        return new TextXifrat(xifrat.getBytes(StandardCharsets.UTF_8));
+    }
+
+    @Override
+    public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada {
+        if (clau != null) {
+            throw new ClauNoSuportada("Xifratge monoalfabètic no suporta clau != null");
+        }
+        String text = new String(xifrat.getBytes(), StandardCharsets.UTF_8);
+        return desxifraMonoAlfa(text);
     }
 }

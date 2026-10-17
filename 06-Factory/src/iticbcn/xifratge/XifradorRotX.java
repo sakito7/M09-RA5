@@ -1,12 +1,14 @@
 package iticbcn.xifratge;
 
+import java.nio.charset.StandardCharsets;
+
 /**
  * RotX
  */
 public class XifradorRotX implements Xifrador {
-    public static String alfabet = "aáàbcçdeéèfghiíìïjklmnñoóòpqrstuúùüvwxyz";
-    public static char[] majuscules = alfabet.toUpperCase().toCharArray();
-    public static char[] minuscules = alfabet.toCharArray();
+    public String alfabet = "aáàbcçdeéèfghiíìïjklmnñoóòpqrstuúùüvwxyz";
+    public char[] majuscules = alfabet.toUpperCase().toCharArray();
+    public char[] minuscules = alfabet.toCharArray();
     
     public String xifraRotX(String cadena, int desplacament) {
         StringBuffer resultat = new StringBuffer();
@@ -40,7 +42,7 @@ public class XifradorRotX implements Xifrador {
     }
 
     public String desxifraRotX(String cadena, int desplacament) {
-        StringBuffer resultat = new StringBuffer();
+        StringBuilder resultat = new StringBuilder();
         int posicio;
 
         for (int i = 0; i < cadena.length(); i++) {
@@ -78,4 +80,30 @@ public class XifradorRotX implements Xifrador {
         }
 
     }
+
+    @Override
+    public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
+        int desplacament = validaClau(clau);
+        String xifrat = xifraRotX(msg, desplacament);
+        return new TextXifrat(xifrat.getBytes(StandardCharsets.UTF_8));
+    }
+
+    @Override
+    public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada {
+        int desplacament = validaClau(clau);
+        String text = new String(xifrat.getBytes(), StandardCharsets.UTF_8);
+        return desxifraRotX(text, desplacament);
+    }
+
+    private int validaClau(String clau) throws ClauNoSuportada {
+    try {
+        int n = Integer.parseInt(clau);
+        if (n < 0 || n > 40) {
+            throw new ClauNoSuportada("Clau de RotX ha de ser un sencer de 0 a 40");
+        }
+        return n;
+    } catch (NumberFormatException e) {
+        throw new ClauNoSuportada("Clau de RotX ha de ser un sencer de 0 a 40");
+    }
+}
 }

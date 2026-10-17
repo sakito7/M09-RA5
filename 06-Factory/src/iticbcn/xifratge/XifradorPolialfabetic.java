@@ -1,5 +1,6 @@
 package iticbcn.xifratge;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -76,5 +77,29 @@ public class XifradorPolialfabetic implements Xifrador {
 
     public void initRandom(long clauSecreta) {
         rnd = new Random(clauSecreta);
+    }
+
+    @Override
+    public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
+        long seed = validaClau(clau, "La clau per xifrat Polialfabètic ha de ser un String convertible a long");
+        initRandom(seed);
+        String xifrat = xifraPolialfa(msg);
+        return new TextXifrat(xifrat.getBytes(StandardCharsets.UTF_8));
+    }
+
+    @Override
+    public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada {
+        long seed = validaClau(clau, "La clau de Polialfabètic ha de ser un String convertible a long");
+        initRandom(seed);
+        String text = new String(xifrat.getBytes(), StandardCharsets.UTF_8);
+        return desxifraPolialfa(text);
+    }
+
+    private long validaClau(String clau, String missatge) throws ClauNoSuportada {
+        try {
+            return Long.parseLong(clau);
+        } catch (NumberFormatException e) {
+            throw new ClauNoSuportada(missatge);
+        }
     }
 }

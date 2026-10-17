@@ -86,4 +86,28 @@ public class XifradorAES implements Xifrador {
 	private byte[] getBytesXifrats(byte[] bIvIMsgXifrat) {
 		return Arrays.copyOfRange(bIvIMsgXifrat, MIDA_IV, bIvIMsgXifrat.length);
 	}
+
+	@Override
+    public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
+        if (msg == null || clau == null) {
+            throw new ClauNoSuportada("Missatge o clau nuls");
+        }
+        try {
+            return new TextXifrat(xifraAES(msg, clau));
+        } catch (Exception e) {
+            throw new ClauNoSuportada("Error en xifrar amb AES: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada {
+        if (xifrat == null || clau == null) {
+            throw new ClauNoSuportada("Text xifrat o clau nuls");
+        }
+        try {
+            return desxifraAES(xifrat.getBytes(), clau);
+        } catch (Exception e) {
+            throw new ClauNoSuportada("Error en desxifrar amb AES: " + e.getMessage());
+        }
+    }
 }

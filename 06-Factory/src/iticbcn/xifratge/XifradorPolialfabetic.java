@@ -81,16 +81,16 @@ public class XifradorPolialfabetic implements Xifrador {
 
     @Override
     public TextXifrat xifra(String msg, String clau) throws ClauNoSuportada {
-        long seed = validaClau(clau, "La clau per xifrat Polialfabètic ha de ser un String convertible a long");
-        initRandom(seed);
+        long madremia = validaClau(clau, "La clau per xifrat Polialfabètic ha de ser un String convertible a long");
+        initRandom(madremia);
         String xifrat = xifraPolialfa(msg);
         return new TextXifrat(xifrat.getBytes(StandardCharsets.UTF_8));
     }
 
     @Override
     public String desxifra(TextXifrat xifrat, String clau) throws ClauNoSuportada {
-        long seed = validaClau(clau, "La clau de Polialfabètic ha de ser un String convertible a long");
-        initRandom(seed);
+        long madremia = validaClau(clau, "La clau de Polialfabètic ha de ser un String convertible a long");
+        initRandom(madremia);
         String text = new String(xifrat.getBytes(), StandardCharsets.UTF_8);
         return desxifraPolialfa(text);
     }
